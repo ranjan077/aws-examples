@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Check if the bucket name is provided
+if [ -z "$1" ]; then
+    echo "Please provide a bucket name as an argument."
+    exit 1
+fi
+
+# Assign bucket name and region
+BUCKET_NAME=$1
+REGION="ap-south-1" # Set the desired region here
+
+# Create the bucket with region configuration
+aws s3api list-objects-v2 --bucket "$BUCKET_NAME"
+
+
