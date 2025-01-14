@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
+echo "== sync"
+# Exit immediately if any command returns a non-zero status
+set -e
 
-# Check if the bucket name is provided
+# Check for bucket name
 if [ -z "$1" ]; then
-    echo "Please provide a bucket name as an argument."
+    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
     exit 1
 fi
 
-# Assign bucket name and region
-BUCKET_NAME=$1
-REGION="ap-south-1" # Set the desired region here
 
-# Create the bucket with region configuration
-aws s3api list-objects-v2 --bucket "$BUCKET_NAME"
+# Check for filename prefix
+if [ -z "$2" ]; then
+    echo "There needs to be a filename. ./bucket my-bucket-name my-filename"
+    exit 1
+fi
 
-
+ aws s3api put-object --bucket $1 --key $2
